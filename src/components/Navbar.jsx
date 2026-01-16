@@ -68,13 +68,15 @@ const Navbar = () => {
             </div>
 
             <div>
-              <Image
-                src="/assets/logo.png"
-                width={50}
-                height={50}
-                className="w-full h-full object-contain"
-                alt="Logo"
-              />
+              <Link href={"/"}>
+                <Image
+                  src="/assets/logo.png"
+                  width={50}
+                  height={50}
+                  className="w-full h-full object-contain"
+                  alt="Logo"
+                />
+              </Link>
             </div>
 
             {/* Search */}
