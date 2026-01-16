@@ -1,19 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useParams } from "next/navigation";
-import {
-  FaHeart,
-  FaShareAlt,
-  FaWhatsapp,
-  FaPhone,
-  FaRegHeart,
-} from "react-icons/fa";
+import { FaWhatsapp, FaPhone, FaRegHeart } from "react-icons/fa";
 import { LuMinus } from "react-icons/lu";
 import { FaPlus } from "react-icons/fa6";
 import ProductTabs from "@/components/ProductTabs";
 import { BsShareFill } from "react-icons/bs";
+import ProductImages from "@/components/ProductImage";
 
 const ProductDetails = () => {
   const { slug } = useParams();
@@ -37,26 +31,7 @@ const ProductDetails = () => {
         <div className="grid lg:grid-cols-2 gap-5">
           {/* Image */}
           <div className="border border-base-100 rounded-xl p-5">
-            <div className="relative w-full h-100">
-              <Image
-                src={product.images[0]}
-                alt={product.name}
-                fill
-                className="object-contain"
-              />
-            </div>
-
-            {/* Thumbnails */}
-            <div className="flex gap-3 mt-4">
-              {product.images.map((img, i) => (
-                <div
-                  key={i}
-                  className="border rounded-md p-1 w-20 h-20 relative cursor-pointer"
-                >
-                  <Image src={img} alt="" fill className="object-contain" />
-                </div>
-              ))}
-            </div>
+            <ProductImages images={product.images} />
           </div>
 
           {/* RIGHT: Info */}

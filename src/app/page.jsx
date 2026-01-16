@@ -5,7 +5,7 @@ import Personalized from "@/components/Personalized";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[f4f5ff]">
+    <main className="min-h-screen bg-[#f4f5ff] pb-15">
       <Banner />
       <Category />
       <NewArrivals />

@@ -1,54 +1,108 @@
-import { FaSearch, FaHeart, FaUser, FaBars } from "react-icons/fa";
-import { BsCart } from "react-icons/bs";
+import { FaUser } from "react-icons/fa";
+import { GoSearch } from "react-icons/go";
+import { FaRegHeart } from "react-icons/fa6";
+import { MdOutlineShoppingBag } from "react-icons/md";
+import { GrMenu } from "react-icons/gr";
+import Image from "next/image";
+import Link from "next/link";
+
+const mainMenu = [
+  { name: "Home", href: "/" },
+  { name: "All Product", href: "/products" },
+  { name: "Offer", href: "/offer" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+  { name: "Free Delivery", href: "/delivery" },
+];
+const categoryData = [
+  {
+    title: "Phones",
+    image: "/assets/phones.webp",
+  },
+  {
+    title: "Tablet",
+    image: "/assets/tablet.webp",
+  },
+  {
+    title: "Laptop",
+    image: "/assets/laptop.webp",
+  },
+  {
+    title: "Airpods",
+    image: "/assets/airpods.webp",
+  },
+];
 
 const Navbar = () => {
   return (
     <div className="w-full border-b">
       {/* Top Header */}
-      <div className="flex items-center justify-between px-4 py-3 gap-3">
-        {/* Left */}
-        <div className="flex items-center gap-3">
-          {/* Mobile Menu Button */}
-          <label htmlFor="mobile-menu" className="btn btn-ghost lg:hidden">
-            <FaBars size={20} />
-          </label>
+      <div className="mid-container border-b border-base-100">
+        <div className="flex items-center justify-between px-4 py-3 gap-3">
+          <div>
+            <label htmlFor="mobile-menu" className="btn border lg:hidden">
+              <GrMenu size={20} />
+            </label>
+          </div>
 
-          <h1 className="text-xl font-bold">QuickMart</h1>
-        </div>
-
-        {/* Search */}
-        <div className="hidden md:flex flex-1 max-w-xl">
-          <div className="join w-full">
-            <input
-              type="text"
-              placeholder="Search Product"
-              className="input input-bordered join-item w-full"
+          <div>
+            <Image
+              src="/assets/logo.png"
+              width={50}
+              height={50}
+              className="w-full h-full object-contain"
+              alt="Logo"
             />
-            <button className="btn btn-primary join-item">
-              <FaSearch />
-            </button>
-          </div>
-        </div>
-
-        {/* Right Icons */}
-        <div className="flex items-center gap-3">
-          <div className="indicator">
-            <span className="indicator-item badge badge-primary">0</span>
-            <button className="btn btn-ghost">
-              <BsCart size={20} />
-            </button>
           </div>
 
-          <div className="indicator">
-            <span className="indicator-item badge badge-primary">0</span>
-            <button className="btn btn-ghost">
-              <FaHeart size={20} />
-            </button>
+          {/* Search */}
+          <div className="w-full max-w-2xl hidden lg:block">
+            <div className="w-full relative px-2 lg:px-0">
+              <form className="flex items-center w-full rounded overflow-hidden border border-primary">
+                <input
+                  type="text"
+                  placeholder="Search Product"
+                  className="w-full px-3 py-2.5 outline-none text-sm"
+                  name="search"
+                />
+                <button
+                  type="submit"
+                  className="px-3 py-3 transition-colors bg-primary border-primary text-white border-0 cursor-pointer"
+                >
+                  <GoSearch />
+                </button>
+              </form>
+            </div>
           </div>
 
-          <button className="btn btn-outline hidden sm:flex gap-2">
-            <FaUser /> Login
-          </button>
+          {/* Right Icons */}
+          <div className="flex items-center gap-4 md:gap-6">
+            <div>
+              <GoSearch size={20} className="block lg:hidden" />
+            </div>
+
+            <div className="indicator">
+              <MdOutlineShoppingBag size={20} className="text-[#5b6777]" />
+              <span className=" text-xs  absolute -top-2 -right-3 flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white">
+                0
+              </span>
+            </div>
+
+            <div className="indicator hidden md:block">
+              <FaRegHeart size={20} className="text-[#5b6777]" />
+              <span className=" text-xs  absolute -top-2 -right-3 flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white">
+                0
+              </span>
+            </div>
+
+            <Link
+              href={"/auth/login"}
+              className="flex items-center gap-1 border border-gray-400 rounded px-3 py-1 text-sm text-base-content"
+            >
+              <FaUser className="w-2.5" />{" "}
+              <span className="hidden lg:block">Login</span>
+            </Link>
+          </div>
         </div>
       </div>
 

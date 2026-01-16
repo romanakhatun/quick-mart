@@ -38,7 +38,7 @@
     "stock": "in_stock",
     "images": [
       "/assets/products/mackbook2.webp",
-      "/assets/products/mackbook3.webp"
+      "/assets/products/macbook3.webp"
     ],
 
     "description": "MacBook Air M1 delivers exceptional performance with Apple’s M1 chip, ultra-fast speed, and all-day battery life in a lightweight design.",
@@ -64,7 +64,7 @@
     "discount": 8,
     "currency": "BDT",
     "stock": "in_stock",
-    "images": ["/assets/products/iphone.webp"],
+    "images": ["/assets/products/iphone.webp", "/assets/products/iphone.webp"],
 
     "description": "iPhone 13 features a powerful A15 Bionic chip, advanced dual-camera system, and stunning Super Retina XDR display.",
     "ingredients": "Not applicable. Designed with aerospace-grade materials.",
@@ -89,7 +89,10 @@
     "discount": 9,
     "currency": "BDT",
     "stock": "in_stock",
-    "images": ["/assets/products/samsung.webp"],
+    "images": [
+      "/assets/products/samsung.webp",
+      "/assets/products/samsung.webp"
+    ],
 
     "description": "Samsung Galaxy S23 offers flagship performance with a stunning AMOLED display, powerful camera system, and premium build quality.",
     "ingredients": "Not applicable. High-grade smartphone components.",
@@ -114,7 +117,7 @@
     "discount": 12,
     "currency": "BDT",
     "stock": "in_stock",
-    "images": ["/assets/products/xiaomi.webp"],
+    "images": ["/assets/products/xiaomi.webp", "/assets/products/xiaomi.webp"],
 
     "description": "Redmi Note 13 delivers excellent value with a large display, reliable performance, and long-lasting battery.",
     "ingredients": "Not applicable. Electronic components only.",
@@ -167,7 +170,10 @@
     "discount": 11,
     "currency": "BDT",
     "stock": "in_stock",
-    "images": ["/assets/products/samsung.webp"],
+    "images": [
+      "/assets/products/samsung.webp",
+      "/assets/products/samsung.webp"
+    ],
 
     "description": "Galaxy Tab A8 offers smooth performance, immersive display, and long battery life for daily use.",
     "ingredients": "Not applicable. Electronic hardware components.",
