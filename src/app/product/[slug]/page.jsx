@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { FaWhatsapp, FaPhone, FaRegHeart } from "react-icons/fa";
@@ -91,7 +90,7 @@ const ProductDetails = () => {
             {/* Quantity */}
             <div className="flex items-center gap-4 mt-4">
               <span className="font-semibold">QUANTITY :</span>
-              <div className="flex items-center h-[45px] justify-start border-gray-300 border-2 rounded-md">
+              <div className="flex items-center h-11.25 justify-start border-gray-300 border-2 rounded-md">
                 <button
                   className="px-3 py-1 cursor-pointer"
                   onClick={() => setQty(Math.max(1, qty - 1))}

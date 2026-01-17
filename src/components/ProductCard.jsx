@@ -36,17 +36,18 @@ const ProductCard = ({ product }) => {
         </span>
       </div>
 
-      {/* Title */}
-
       <Link href={`/product/${slug}`}>
         <h3 className="text-sm font-semibold mb-4 line-clamp-2">{name}</h3>
       </Link>
 
       {/* Actions */}
       <div className="flex gap-2 top-3 right-3 mt-auto">
-        <button className="flex-1 border border-blue-500 text-blue-500 text-xs font-semibold py-2 rounded-md hover:bg-blue-50 transition-colors cursor-pointer">
+        <Link
+          href={`/checkout/${slug}`}
+          className="flex-1 border border-blue-500 text-blue-500 text-xs font-semibold py-2 rounded-md hover:bg-blue-50 transition-colors  flex justify-center cursor-pointer"
+        >
           Add To Cart
-        </button>
+        </Link>
         <button className="cursor-pointer flex-1 bg-blue-500 text-white text-xs font-semibold py-2 rounded-md hover:bg-blue-600 transition-colors">
           Buy Now
         </button>
