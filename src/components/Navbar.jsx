@@ -4,7 +4,7 @@ import { GoSearch } from "react-icons/go";
 import { FaRegHeart } from "react-icons/fa6";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { HiMiniChevronDown } from "react-icons/hi2";
-
+import { IoCloseOutline } from "react-icons/io5";
 import { GrMenu } from "react-icons/gr";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,33 +21,21 @@ const mainMenu = [
 
 const categoryMenu = [
   {
-    title: "Electronics",
+    title: "Phones",
+    image: "/assets/phones.webp",
   },
   {
     title: "Laptop",
     children: ["Gaming Laptop", "Study Laptop"],
-  },
-  {
-    title: "Airpods",
-    children: ["Wireless Airpods", "Noise Cancelling"],
-  },
-];
-
-const categoryData = [
-  {
-    title: "Phones",
-    image: "/assets/phones.webp",
+    image: "/assets/laptop.webp",
   },
   {
     title: "Tablet",
     image: "/assets/tablet.webp",
   },
   {
-    title: "Laptop",
-    image: "/assets/laptop.webp",
-  },
-  {
     title: "Airpods",
+    children: ["Wireless Airpods", "Noise Cancelling"],
     image: "/assets/airpods.webp",
   },
 ];
@@ -144,13 +132,23 @@ const Navbar = () => {
             </button>
 
             {/* Dropdown Panel */}
-            <div className="absolute left-0 top-full mt-2 w-65 min-h-68 bg-white shadow-lg opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50">
+            <div className="absolute left-0 top-full mt-2 w-65 min-h-75 bg-white shadow-lg opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50">
               <ul className="divide-y menu w-full">
                 {categoryMenu.map((cat, i) => (
                   <li className="border-b border-gray-100" key={i}>
                     {cat.children ? (
                       <details>
-                        <summary>{cat.title}</summary>
+                        <summary>
+                          <Image
+                            className="rounded-md object-contain w-5 h-5"
+                            loading="lazy"
+                            src={cat.image}
+                            alt="Image"
+                            width={50}
+                            height={50}
+                          />{" "}
+                          {cat.title}
+                        </summary>
                         <ul>
                           {cat.children.map((sub, idx) => (
                             <li key={idx}>
@@ -160,7 +158,17 @@ const Navbar = () => {
                         </ul>
                       </details>
                     ) : (
-                      <a>{cat.title}</a>
+                      <div>
+                        <Image
+                          className="rounded-md object-contain w-5 h-5"
+                          loading="lazy"
+                          src={cat.image}
+                          alt="Image"
+                          width={50}
+                          height={50}
+                        />
+                        <a>{cat.title}</a>
+                      </div>
                     )}
                   </li>
                 ))}
@@ -197,7 +205,7 @@ const Navbar = () => {
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold">QuickMart</h2>
               <label htmlFor="mobile-menu" className="btn btn-sm btn-circle">
-                ✕
+                <IoCloseOutline />
               </label>
             </div>
 
@@ -230,7 +238,17 @@ const Navbar = () => {
                     <li className="border-b border-gray-100" key={i}>
                       {cat.children ? (
                         <details>
-                          <summary>{cat.title}</summary>
+                          <summary>
+                            <Image
+                              className="rounded-md object-contain w-5 h-5"
+                              loading="lazy"
+                              src={cat.image}
+                              alt="Image"
+                              width={50}
+                              height={50}
+                            />{" "}
+                            {cat.title}
+                          </summary>
                           <ul>
                             {cat.children.map((sub, idx) => (
                               <li key={idx}>
@@ -240,7 +258,17 @@ const Navbar = () => {
                           </ul>
                         </details>
                       ) : (
-                        <a>{cat.title}</a>
+                        <div>
+                          <Image
+                            className="rounded-md object-contain w-5 h-5"
+                            loading="lazy"
+                            src={cat.image}
+                            alt="Image"
+                            width={50}
+                            height={50}
+                          />
+                          <a>{cat.title}</a>
+                        </div>
                       )}
                     </li>
                   ))}

@@ -2,12 +2,12 @@ import { FaFacebookF, FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
 import { CgMail } from "react-icons/cg";
 import { FiPhone } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
+import { FaArrowRight } from "react-icons/fa6";
 
 const Footer = () => {
   return (
     <footer className="bg-[#0f172a] text-white">
       <div className="mid-container py-14">
-        {/* TOP GRID */}
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* ABOUT */}
           <div className="space-y-4">
@@ -94,14 +94,14 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="flex w-full md:w-auto gap-3">
+          <div className="flex flex-col sm:flex-row w-full md:w-auto gap-3">
             <input
               type="email"
               placeholder="Enter your email"
               className="flex-1 md:flex-none px-4 py-2 bg-slate-700 text-white placeholder-slate-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
-            <button className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors flex items-center gap-2 cursor-pointer">
-              Subscribe →
+            <button className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors flex items-center gap-2 cursor-pointer justify-center">
+              Subscribe <FaArrowRight />
             </button>
           </div>
         </div>
