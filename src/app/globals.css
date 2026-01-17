@@ -33,4 +33,7 @@ body {
   .mid-container {
     @apply max-w-7xl mx-auto px-2.5;
   }
+  .input-style {
+    @apply w-full rounded-lg border border-gray-300 text-sm font-medium py-3 px-3 outline-none focus:border-primary duration-300;
+  }
 }

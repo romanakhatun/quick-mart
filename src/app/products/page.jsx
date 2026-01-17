@@ -28,7 +28,6 @@ export default function Products() {
               <ProductFilter />
             </div>
 
-            {/* Product Content */}
             <div className="w-full lg:w-[80%]">
               {/* Top Bar */}
               <div className="flex bg-white shadow rounded-md md:items-center gap-2 md:flex-row flex-col justify-between py-5 px-5 mb-8 w-full">
@@ -56,7 +55,7 @@ export default function Products() {
 
                     <select
                       id="sort"
-                      className="border w-[160px] rounded px-3 border-gray-400 text-sm outline-none py-2 cursor-pointer"
+                      className="border w-40 rounded px-3 border-gray-400 text-sm outline-none py-2 cursor-pointer"
                     >
                       <option value="">Sort By Price</option>
                       <option value="asc">Price: Low to High</option>

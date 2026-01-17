@@ -9,6 +9,7 @@ import { GrMenu } from "react-icons/gr";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import CartDrawer from "./CartDrawer";
 
 const mainMenu = [
   { name: "Home", href: "/" },
@@ -93,12 +94,20 @@ const Navbar = () => {
                 <GoSearch size={20} className="block lg:hidden" />
               </div>
 
-              <div className="indicator">
+              {/* <div className="indicator">
                 <MdOutlineShoppingBag size={20} className="text-[#5b6777]" />
                 <span className=" text-xs  absolute -top-2 -right-3 flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white">
                   0
                 </span>
-              </div>
+              </div> */}
+
+              <label htmlFor="cart-drawer" className="indicator cursor-pointer">
+                <MdOutlineShoppingBag size={20} className="text-[#5b6777]" />
+
+                <span className="text-xs absolute -top-2 -right-3 flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white">
+                  0
+                </span>
+              </label>
 
               <div className="indicator hidden md:block">
                 <FaRegHeart size={20} className="text-[#5b6777]" />
@@ -124,7 +133,7 @@ const Navbar = () => {
         <div className="hidden lg:flex lg:items-center justify-center gap-6 px-4 py-2 relative">
           {/* Browse Categories */}
           <div className="relative group">
-            <button className=" text-white px-5 justify-between w-[250px] rounded-md py-2.5  bg-primary text-sm font-medium flex items-center gap-1 cursor-pointer">
+            <button className=" text-white px-5 justify-between w-62.5 rounded-md py-2.5  bg-primary text-sm font-medium flex items-center gap-1 cursor-pointer">
               Browse Categories
               <span className="transition-transform duration-800 group-hover:rotate-180">
                 <HiMiniChevronDown />
@@ -192,9 +201,6 @@ const Navbar = () => {
       {/* Mobile Drawer */}
       <div className="drawer lg:hidden">
         <input id="mobile-menu" type="checkbox" className="drawer-toggle" />
-
-        {/* Page content */}
-        {/* <div className="drawer-content"></div> */}
 
         {/* Drawer side */}
         <div className="drawer-side z-50">
@@ -295,6 +301,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      <CartDrawer />
     </div>
   );
 };
