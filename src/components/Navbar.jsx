@@ -194,7 +194,7 @@ const Navbar = () => {
         <input id="mobile-menu" type="checkbox" className="drawer-toggle" />
 
         {/* Page content */}
-        <div className="drawer-content"></div>
+        {/* <div className="drawer-content"></div> */}
 
         {/* Drawer side */}
         <div className="drawer-side z-50">
