@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import CartDrawer from "./CartDrawer";
 
 const ProductCard = ({ product }) => {
   const { slug, name, price, oldPrice, discount, images } = product;
@@ -42,16 +43,21 @@ const ProductCard = ({ product }) => {
 
       {/* Actions */}
       <div className="flex gap-2 top-3 right-3 mt-auto">
-        <Link
-          href={`/checkout/${slug}`}
-          className="flex-1 border border-blue-500 text-blue-500 text-xs font-semibold py-2 rounded-md hover:bg-blue-50 transition-colors  flex justify-center cursor-pointer"
+        <label
+          htmlFor="cart-drawer"
+          className="flex-1 border border-blue-500 text-blue-500 text-xs font-semibold py-2 rounded-md hover:bg-blue-50 transition-colors flex justify-center cursor-pointer"
         >
           Add To Cart
-        </Link>
-        <button className="cursor-pointer flex-1 bg-blue-500 text-white text-xs font-semibold py-2 rounded-md hover:bg-blue-600 transition-colors">
+        </label>
+
+        <Link
+          href={`/checkout/${slug}`}
+          className="cursor-pointer flex-1 bg-blue-500 text-white text-xs font-semibold py-2 rounded-md hover:bg-blue-600 transition-colors flex justify-center"
+        >
           Buy Now
-        </button>
+        </Link>
       </div>
+      <CartDrawer />
     </div>
   );
 };
