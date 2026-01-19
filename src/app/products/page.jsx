@@ -5,7 +5,7 @@ import { CiFilter } from "react-icons/ci";
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
 
-export default function Products() {
+export const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -95,4 +95,4 @@ export default function Products() {
       </div>
     </div>
   );
-}
+};
