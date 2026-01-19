@@ -1,18 +1,27 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { CiFilter } from "react-icons/ci";
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
 
-export const Products = () => {
-  const [products, setProducts] = useState([]);
+const Products = async () => {
+  // const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetch("/data/products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("/data/products.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setProducts(data));
+  // }, []);
+
+  const res = await fetch(
+    "https://ecommerce-saas-server-wine.vercel.app/api/v1/product/website",
+    {
+      headers: {
+        "store-id": process.env.NEXT_PUBLIC_STORE_ID,
+      },
+    },
+  );
+
+  const json = await res.json();
+  const products = json?.data?.data || [];
 
   return (
     <div className="drawer drawer-start lg:drawer-open">
@@ -67,8 +76,8 @@ export const Products = () => {
 
               {/* Product Grid */}
               <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 md:gap-5">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                {products.map((product, i) => (
+                  <ProductCard key={i} product={product} />
                 ))}
               </div>
             </div>
@@ -96,3 +105,4 @@ export const Products = () => {
     </div>
   );
 };
+export default Products;

@@ -1,16 +1,25 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 
-const NewArrivals = () => {
-  const [products, setProducts] = useState([]);
+const NewArrivals = async () => {
+  // const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetch("/data/products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("/data/products.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setProducts(data));
+  // }, []);
+
+  const res = await fetch(
+    "https://ecommerce-saas-server-wine.vercel.app/api/v1/product/website",
+    {
+      headers: {
+        "store-id": process.env.NEXT_PUBLIC_STORE_ID,
+      },
+    },
+  );
+
+  const json = await res.json();
+  const products = json?.data?.data || [];
 
   return (
     <section className="mid-container py-6">
@@ -20,8 +29,8 @@ const NewArrivals = () => {
       </div>
 
       <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 md:gap-5">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        {products.map((product, i) => (
+          <ProductCard key={i} product={product} />
         ))}
       </div>
     </section>
