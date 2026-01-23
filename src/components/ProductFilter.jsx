@@ -1,195 +1,59 @@
-// "use client";
-// import { useRouter, useSearchParams } from "next/navigation";
-// import { useState } from "react";
-
-// const ProductFilter = () => {
-//   const router = useRouter();
-
-//   const [min, setMin] = useState("");
-//   const [max, setMax] = useState("");
-//   const [categories, setCategories] = useState([]);
-//   const [subCategories, setSubCategories] = useState([]);
-
-//   const handleCheckbox = (value, state, setState) => {
-//     if (state.includes(value)) {
-//       setState(state.filter((item) => item !== value));
-//     } else {
-//       setState([...state, value]);
-//     }
-//   };
-
-//   const applyFilter = () => {
-//     const params = new URLSearchParams();
-
-//     // Price
-//     if (min) params.set("minPrice", min);
-//     if (max) params.set("maxPrice", max);
-
-//     // Category (multiple হলে join)
-//     if (categories.length > 0) {
-//       params.set("categoryP", categories.map((c) => c.toLowerCase()).join(","));
-//     }
-
-//     // Subcategory
-//     if (subCategories.length > 0) {
-//       params.set("subCategory", subCategories.join(","));
-//     }
-
-//     router.push(`/products?${params.toString()}`);
-//   };
-
-//   return (
-//     <aside className="space-y-6">
-//       {/* Filter by Price */}
-//       <div className="bg-white rounded-xl shadow p-5">
-//         <h3 className="text-lg font-semibold mb-4">Filter by Price</h3>
-
-//         <div className="flex gap-3 mb-4">
-//           <input
-//             type="number"
-//             placeholder="Min"
-//             value={min}
-//             onChange={(e) => setMin(e.target.value)}
-//             className="w-full border rounded-md px-3 py-2 outline-none"
-//           />
-//           <input
-//             type="number"
-//             placeholder="Max"
-//             value={max}
-//             onChange={(e) => setMax(e.target.value)}
-//             className="w-full border rounded-md px-3 py-2 outline-none"
-//           />
-//         </div>
-
-//         <div className="flex gap-3">
-//           <button className="flex-1 bg-primary text-white py-2 rounded-md font-medium cursor-pointer">
-//             Apply
-//           </button>
-//           <button
-//             onClick={() => {
-//               setMin("");
-//               setMax("");
-//             }}
-//             className="flex-1 bg-gray-400 text-white py-2 rounded-md font-medium cursor-pointer"
-//           >
-//             Clear
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Filter by Category */}
-//       <div className="bg-white rounded-xl shadow p-5">
-//         <h3 className="text-lg font-semibold mb-4">Filter by Category</h3>
-
-//         {["Electronics", "Laptop", "Accessories"].map((cat) => (
-//           <label
-//             key={cat}
-//             className="flex items-center gap-3 mb-3 cursor-pointer"
-//           >
-//             <input
-//               type="checkbox"
-//               checked={categories.includes(cat)}
-//               onChange={() => handleCheckbox(cat, categories, setCategories)}
-//               className="checkbox checkbox-sm"
-//             />
-//             <span className="hover:text-primary font-medium">{cat}</span>
-//           </label>
-//         ))}
-//       </div>
-
-//       {/* Filter by Subcategory */}
-//       <div className="bg-white rounded-xl shadow p-5">
-//         <h3 className="text-lg font-semibold mb-4">Filter by Subcategory</h3>
-
-//         {["Gaming Laptop", "Study Laptop"].map((sub) => (
-//           <label
-//             key={sub}
-//             className="flex items-center gap-3 mb-3 cursor-pointer"
-//           >
-//             <input
-//               type="checkbox"
-//               checked={subCategories.includes(sub)}
-//               onChange={() =>
-//                 handleCheckbox(sub, subCategories, setSubCategories)
-//               }
-//               className="checkbox checkbox-sm"
-//             />
-//             <span>{sub}</span>
-//           </label>
-//         ))}
-//       </div>
-//     </aside>
-//   );
-// };
-
-// export default ProductFilter;
-
 "use client";
-
+import { useQueryState } from "nuqs";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 
 const ProductFilter = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [category, setCategory] = useQueryState("category", {
+    shallow: false,
+    defaultValue: "",
+  });
 
-  // Initial state from URL (important)
-  const [min, setMin] = useState(searchParams.get("minPrice") || "");
-  const [max, setMax] = useState(searchParams.get("maxPrice") || "");
+  const [subCategory, setSubCategory] = useQueryState("subCategory", {
+    shallow: false,
+    defaultValue: "",
+  });
 
-  const [categories, setCategories] = useState(
-    searchParams.get("categoryP")
-      ? searchParams.get("categoryP").split(",")
-      : [],
-  );
+  const [minPrice, setMinPrice] = useQueryState("minPrice", {
+    shallow: false,
+    defaultValue: "",
+  });
 
-  const [subCategories, setSubCategories] = useState(
-    searchParams.get("subCategory")
-      ? searchParams.get("subCategory").split(",")
-      : [],
-  );
+  const [maxPrice, setMaxPrice] = useQueryState("maxPrice", {
+    shallow: false,
+    defaultValue: "",
+  });
 
-  // Checkbox handler
-  const handleCheckbox = (value, state, setState) => {
-    if (state.includes(value)) {
-      setState(state.filter((item) => item !== value));
-    } else {
-      setState([...state, value]);
-    }
+  const [min, setMin] = useState(minPrice || "");
+  const [max, setMax] = useState(maxPrice || "");
+
+  const toggleMulti = (value, current, setFn) => {
+    const arr = current ? current.split(",") : [];
+    const updated = arr.includes(value)
+      ? arr.filter((i) => i !== value)
+      : [...arr, value];
+
+    setFn(updated.length ? updated.join(",") : null);
   };
 
-  // Apply filter → URL update
-  const applyFilter = () => {
-    const params = new URLSearchParams();
-
-    if (min) params.set("minPrice", min);
-    if (max) params.set("maxPrice", max);
-
-    if (categories.length > 0) {
-      params.set("categoryP", categories.map((c) => c.toLowerCase()).join(","));
-    }
-
-    if (subCategories.length > 0) {
-      params.set("subCategory", subCategories.join(","));
-    }
-
-    router.push(`/products?${params.toString()}`);
+  const applyPrice = () => {
+    setMinPrice(min || null);
+    setMaxPrice(max || null);
   };
 
-  // Clear filter
-  const clearFilter = () => {
+  const clearAll = () => {
+    setCategory(null);
+    setSubCategory(null);
+    setMinPrice(null);
+    setMaxPrice(null);
     setMin("");
     setMax("");
-    setCategories([]);
-    setSubCategories([]);
-    router.push("/products");
   };
 
   return (
     <aside className="space-y-6">
-      {/* Filter by Price */}
+      {/* Price */}
       <div className="bg-white rounded-xl shadow p-5">
-        <h3 className="text-lg font-semibold mb-4">Filter by Price</h3>
+        <h3 className="font-semibold mb-4">Filter by Price</h3>
 
         <div className="flex gap-3 mb-4">
           <input
@@ -197,71 +61,60 @@ const ProductFilter = () => {
             placeholder="Min"
             value={min}
             onChange={(e) => setMin(e.target.value)}
-            className="w-full border rounded-md px-3 py-2 outline-none"
+            className="w-full border rounded px-3 py-2"
           />
           <input
             type="number"
             placeholder="Max"
             value={max}
             onChange={(e) => setMax(e.target.value)}
-            className="w-full border rounded-md px-3 py-2 outline-none"
+            className="w-full border rounded px-3 py-2"
           />
         </div>
 
         <div className="flex gap-3">
           <button
-            onClick={applyFilter}
-            className="flex-1 bg-primary text-white py-2 rounded-md font-medium cursor-pointer"
+            onClick={applyPrice}
+            className="flex-1 bg-primary text-white py-2 rounded"
           >
             Apply
           </button>
-
           <button
-            onClick={clearFilter}
-            className="flex-1 bg-gray-400 text-white py-2 rounded-md font-medium cursor-pointer"
+            onClick={clearAll}
+            className="flex-1 bg-gray-400 text-white py-2 rounded"
           >
             Clear
           </button>
         </div>
       </div>
 
-      {/* Filter by Category */}
+      {/* Category  */}
       <div className="bg-white rounded-xl shadow p-5">
-        <h3 className="text-lg font-semibold mb-4">Filter by Category</h3>
+        <h3 className="font-semibold mb-4">Category</h3>
 
-        {["Electronics", "Laptop", "Accessories"].map((cat) => (
-          <label
-            key={cat}
-            className="flex items-center gap-3 mb-3 cursor-pointer"
-          >
+        {["Electronics", "Laptop"].map((cat) => (
+          <label key={cat} className="flex items-center gap-3 mb-3">
             <input
               type="checkbox"
-              checked={categories.includes(cat.toLowerCase())}
-              onChange={() =>
-                handleCheckbox(cat.toLowerCase(), categories, setCategories)
-              }
+              checked={category?.split(",").includes(cat) || false}
+              onChange={() => toggleMulti(cat, category, setCategory)}
               className="checkbox checkbox-sm"
             />
-            <span className="hover:text-primary font-medium">{cat}</span>
+            <span className="capitalize">{cat}</span>
           </label>
         ))}
       </div>
 
-      {/* Filter by Subcategory */}
+      {/* Subcategory */}
       <div className="bg-white rounded-xl shadow p-5">
-        <h3 className="text-lg font-semibold mb-4">Filter by Subcategory</h3>
+        <h3 className="font-semibold mb-4">Sub Category</h3>
 
         {["Gaming Laptop", "Study Laptop"].map((sub) => (
-          <label
-            key={sub}
-            className="flex items-center gap-3 mb-3 cursor-pointer"
-          >
+          <label key={sub} className="flex items-center gap-3 mb-3">
             <input
               type="checkbox"
-              checked={subCategories.includes(sub)}
-              onChange={() =>
-                handleCheckbox(sub, subCategories, setSubCategories)
-              }
+              checked={subCategory?.split(",").includes(sub)}
+              onChange={() => toggleMulti(sub, subCategory, setSubCategory)}
               className="checkbox checkbox-sm"
             />
             <span>{sub}</span>

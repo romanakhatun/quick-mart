@@ -1,28 +1,39 @@
-import { CiFilter } from "react-icons/ci";
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
+import { CiFilter } from "react-icons/ci";
+export const dynamic = "force-dynamic";
 
-const Products = async () => {
-  // const [products, setProducts] = useState([]);
+const Products = async ({ searchParams }) => {
+  const query = await searchParams;
+  const normalize = (value) => {
+    if (!value) return null;
+    if (Array.isArray(value)) return value.join(",");
+    return value;
+  };
 
-  // useEffect(() => {
-  //   fetch("/data/products.json")
-  //     .then((res) => res.json())
-  //     .then((data) => setProducts(data));
-  // }, []);
+  const minPrice = normalize(query.minPrice);
+  const maxPrice = normalize(query.maxPrice);
+  const category = normalize(query.category);
+  const subCategory = normalize(query.subCategory);
 
-  const res = await fetch(
-    "https://ecommerce-saas-server-wine.vercel.app/api/v1/product/website",
-    {
-      headers: {
-        "store-id": process.env.NEXT_PUBLIC_STORE_ID,
-      },
+  const params = new URLSearchParams();
+
+  if (minPrice) params.set("minPrice", minPrice);
+  if (maxPrice) params.set("maxPrice", maxPrice);
+  if (category) params.set("category", category);
+  if (subCategory) params.set("subCategory", subCategory);
+  const url = `https://ecommerce-saas-server-wine.vercel.app/api/v1/product/website?${params.toString()}`;
+
+  const res = await fetch(url, {
+    headers: {
+      "store-id": process.env.NEXT_PUBLIC_STORE_ID,
     },
-  );
+    cache: "no-store",
+  });
 
   const json = await res.json();
   const products = json?.data?.data || [];
-
+  console.log({ params, params: params.toString(), url });
   return (
     <div className="drawer drawer-start lg:drawer-open">
       {/* Drawer Toggle */}
