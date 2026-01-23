@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -19,7 +20,7 @@ const ProductImages = ({ images }) => {
       </div>
 
       {/* THUMBNAILS */}
-      <div className="flex gap-3 mt-4">
+      <div className="flex gap-3 pt-4">
         {images.map((img, i) => (
           <div
             key={i}
@@ -27,7 +28,7 @@ const ProductImages = ({ images }) => {
             className={`relative w-20 h-20 border rounded-md cursor-pointer
               ${activeImage === img ? "border-primary" : "border-gray-300"}`}
           >
-            <Image src={img} alt="" fill className="object-contain" />
+            <Image src={img} alt="Image" fill className="object-contain" />
           </div>
         ))}
       </div>

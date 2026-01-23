@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 
 const ProductTabs = ({ product }) => {
@@ -25,28 +24,27 @@ const ProductTabs = ({ product }) => {
                 {tab === "how"
                   ? "How To Use"
                   : tab === "ingredient"
-                  ? "Ingredient"
-                  : tab === "review"
-                  ? `Review (${product.reviews.length})`
-                  : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                    ? "Ingredient"
+                    : tab === "review"
+                      ? `Review (${product.review.length})`
+                      : tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
-            )
+            ),
           )}
         </div>
 
         {/* Content */}
         <div className="pt-8 text-gray-700 leading-relaxed">
-          {active === "description" && <p>{product.description}</p>}
-
-          {active === "ingredient" && <p>{product.ingredients}</p>}
-
-          {active === "how" && (
-            <ul className="list-disc pl-6 space-y-2">
-              {product.howToUse.map((step, i) => (
-                <li key={i}>{step}</li>
-              ))}
-            </ul>
+          {active === "description" && (
+            <div
+              className="prose prose-sm md:prose-base max-w-none prose-h1:text-2xl prose-h2:text-xl md:prose-h2:text-2xl prose-h2:font-semibold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-primary prose-ul:list-disc"
+              dangerouslySetInnerHTML={{ __html: product.description }}
+            />
           )}
+
+          {active === "ingredient" && <p>{product.ingredient}</p>}
+
+          {active === "how" && <p>{product.how_to_use}</p>}
 
           {active === "review" && (
             <p className="text-gray-500">No reviews yet.</p>
@@ -56,7 +54,7 @@ const ProductTabs = ({ product }) => {
             (product.video ? (
               <div className="aspect-video rounded-lg overflow-hidden">
                 <iframe
-                  src={product.video}
+                  src={product.youtube}
                   className="w-full h-full"
                   allowFullScreen
                 />
