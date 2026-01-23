@@ -20,16 +20,17 @@ const ProductCard = ({ product }) => {
         <button className="absolute right-2 z-10 bg-white/80 backdrop-blur-sm text-gray-800 hover:text-red-500 transition-colors p-1.5 border border-gray-200 rounded-full shadow-sm cursor-pointer">
           <FaRegHeart size={14} />
         </button>
-
-        <Link href={`/product/${path}`}>
-          <Image
-            src={imageURLs?.[0] || "/assets/placeholder.png"}
-            alt={name || "Product image"}
-            fill
-            sizes="(max-width: 768px) 100vw, 250px"
-            className="object-contain hover:scale-110 transition"
-          />
-        </Link>
+        <div className="relative w-full h-40">
+          <Link href={`/product/${path}`}>
+            <Image
+              src={imageURLs?.[0]}
+              alt={name || "Product image"}
+              fill
+              sizes="(max-width: 768px) 100vw, 250px"
+              className="object-contain hover:scale-110 transition"
+            />
+          </Link>
+        </div>
       </div>
 
       {/* Price */}

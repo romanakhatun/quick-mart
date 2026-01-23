@@ -1,3 +1,4 @@
+import Pagination from "@/components/Pagination";
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
 import { CiFilter } from "react-icons/ci";
@@ -5,6 +6,10 @@ export const dynamic = "force-dynamic";
 
 const Products = async ({ searchParams }) => {
   const query = await searchParams;
+
+  const page = Number(query.page || 1);
+  const PER_PAGE = 5;
+
   const normalize = (value) => {
     if (!value) return null;
     if (Array.isArray(value)) return value.join(",");
@@ -33,6 +38,13 @@ const Products = async ({ searchParams }) => {
 
   const json = await res.json();
   const products = json?.data?.data || [];
+
+  // Pagination
+  const totalPages = Math.ceil(products.length / PER_PAGE);
+  const start = (page - 1) * PER_PAGE;
+  const end = start + PER_PAGE;
+  const paginatedProducts = products.slice(start, end);
+
   console.log({ params, params: params.toString(), url });
   return (
     <div className="drawer drawer-start lg:drawer-open">
@@ -87,10 +99,14 @@ const Products = async ({ searchParams }) => {
 
               {/* Product Grid */}
               <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 md:gap-5">
-                {products.map((product, i) => (
+                {paginatedProducts.map((product, i) => (
                   <ProductCard key={i} product={product} />
                 ))}
               </div>
+
+              {totalPages > 1 && (
+                <Pagination currentPage={page} totalPages={totalPages} />
+              )}
             </div>
           </div>
         </div>
