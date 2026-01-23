@@ -1,6 +1,7 @@
 import Pagination from "@/components/Pagination";
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
+import SortSelect from "@/components/SortSelect";
 import { CiFilter } from "react-icons/ci";
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,8 @@ const Products = async ({ searchParams }) => {
 
   const page = Number(query.page || 1);
   const PER_PAGE = 5;
+
+  const sort = query.sort || "";
 
   const normalize = (value) => {
     if (!value) return null;
@@ -27,6 +30,7 @@ const Products = async ({ searchParams }) => {
   if (maxPrice) params.set("maxPrice", maxPrice);
   if (category) params.set("category", category);
   if (subCategory) params.set("subCategory", subCategory);
+
   const url = `https://ecommerce-saas-server-wine.vercel.app/api/v1/product/website?${params.toString()}`;
 
   const res = await fetch(url, {
@@ -39,11 +43,22 @@ const Products = async ({ searchParams }) => {
   const json = await res.json();
   const products = json?.data?.data || [];
 
+  // Sort
+  let sortedProducts = [...products];
+
+  if (sort === "asc") {
+    sortedProducts.sort((a, b) => a.salePrice - b.salePrice);
+  }
+
+  if (sort === "desc") {
+    sortedProducts.sort((a, b) => b.salePrice - a.salePrice);
+  }
+
   // Pagination
-  const totalPages = Math.ceil(products.length / PER_PAGE);
+  const totalPages = Math.ceil(sortedProducts.length / PER_PAGE);
   const start = (page - 1) * PER_PAGE;
   const end = start + PER_PAGE;
-  const paginatedProducts = products.slice(start, end);
+  const paginatedProducts = sortedProducts.slice(start, end);
 
   console.log({ params, params: params.toString(), url });
   return (
@@ -85,14 +100,16 @@ const Products = async ({ searchParams }) => {
                       Sort by:
                     </label>
 
-                    <select
+                    {/* <select
                       id="sort"
                       className="border w-40 rounded px-3 border-gray-400 text-sm outline-none py-2 cursor-pointer"
                     >
                       <option value="">Sort By Price</option>
                       <option value="asc">Price: Low to High</option>
                       <option value="desc">Price: High to Low</option>
-                    </select>
+                    </select> */}
+
+                    <SortSelect />
                   </form>
                 </div>
               </div>
