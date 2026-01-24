@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function CheckoutPage() {
   return (
     <>
-      <title>Quick Mart</title>
+      <title>Quick Mart | Checkout Page</title>
       <meta name="description" content=""></meta>
       <div className="mid-container py-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

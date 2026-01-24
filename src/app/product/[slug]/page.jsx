@@ -1,17 +1,17 @@
 import { FaWhatsapp, FaPhone, FaRegHeart } from "react-icons/fa";
-import { LuMinus } from "react-icons/lu";
-import { FaPlus } from "react-icons/fa6";
 import ProductTabs from "@/components/ProductTabs";
 import { BsShareFill } from "react-icons/bs";
 import ProductImages from "@/components/ProductImage";
 import Link from "next/link";
 import { htmlToPlainText } from "@/utils/htmlToPlainText";
+import Quantity from "@/components/Quantity";
 
+// Generate Meta Data
 export const generateMetadata = async ({ params }) => {
   const { slug } = await params;
 
   const res = await fetch(
-    `https://ecommerce-saas-server-wine.vercel.app/api/v1/product/path/${slug}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/product/path/${slug}`,
   );
   const data = await res.json();
   const product = data?.data;
@@ -28,7 +28,7 @@ const ProductDetails = async ({ params }) => {
   const { slug } = await params;
 
   const res = await fetch(
-    `https://ecommerce-saas-server-wine.vercel.app/api/v1/product/path/${slug}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/product/path/${slug}`,
   );
   const data = await res.json();
   const product = data?.data;
@@ -107,26 +107,7 @@ const ProductDetails = async ({ params }) => {
                 </p>
               </div>
 
-              {/* Quantity */}
-              <div className="flex items-center gap-4 mt-4">
-                <span className="font-semibold">QUANTITY :</span>
-                <div className="flex items-center h-11.25 justify-start border-gray-300 border-2 rounded-md">
-                  <button
-                    className="px-3 py-1 cursor-pointer"
-                    // onClick={() => setQty(Math.max(1, qty - 1))}
-                  >
-                    <LuMinus />
-                  </button>
-                  <span className="px-4">1</span>
-                  <button
-                    className="px-3 py-1 cursor-pointer"
-                    // onClick={() => setQty(qty + 1)}
-                  >
-                    <FaPlus />
-                  </button>
-                </div>
-              </div>
-
+              <Quantity />
               {/* Buttons */}
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <Link

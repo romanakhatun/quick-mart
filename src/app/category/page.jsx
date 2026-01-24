@@ -31,7 +31,7 @@ const Category = async ({ searchParams }) => {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 md:gap-5">
+      <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 md:gap-5">
         {filteredProduct.map((product, i) => (
           <ProductCard key={i} product={product} />
         ))}

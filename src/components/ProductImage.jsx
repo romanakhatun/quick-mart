@@ -5,9 +5,7 @@ import Image from "next/image";
 const ProductImages = ({ images = [], variant = [] }) => {
   const allImages = useMemo(() => {
     const productImages = images.filter(Boolean);
-
     const variantImages = variant.map((v) => v?.image).filter(Boolean);
-
     return productImages.length > 0 ? productImages : variantImages;
   }, [images, variant]);
 
