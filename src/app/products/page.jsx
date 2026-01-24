@@ -13,23 +13,22 @@ const Products = async ({ searchParams }) => {
 
   const sort = query.sort || "";
 
-  const normalize = (value) => {
-    if (!value) return null;
-    if (Array.isArray(value)) return value.join(",");
-    return value;
-  };
-
-  const minPrice = normalize(query.minPrice);
-  const maxPrice = normalize(query.maxPrice);
-  const category = normalize(query.category);
-  const subCategory = normalize(query.subCategory);
-
   const params = new URLSearchParams();
+  params.append("page", page);
+  params.append("limit", PER_PAGE);
 
-  if (minPrice) params.set("minPrice", minPrice);
-  if (maxPrice) params.set("maxPrice", maxPrice);
-  if (category) params.set("category", category);
-  if (subCategory) params.set("subCategory", subCategory);
+  const filterKeys = ["category", "subCategory", "minPrice", "maxPrice"];
+
+  filterKeys.forEach((key) => {
+    const value = query[key];
+    if (value) {
+      const values = value.split(",");
+
+      values.forEach((v) => {
+        params.append(key, v.trim());
+      });
+    }
+  });
 
   const url = `https://ecommerce-saas-server-wine.vercel.app/api/v1/product/website?${params.toString()}`;
 
@@ -55,12 +54,7 @@ const Products = async ({ searchParams }) => {
   }
 
   // Pagination
-  const totalPages = Math.ceil(sortedProducts.length / PER_PAGE);
-  const start = (page - 1) * PER_PAGE;
-  const end = start + PER_PAGE;
-  const paginatedProducts = sortedProducts.slice(start, end);
-
-  console.log({ params, params: params.toString(), url });
+  const totalPages = Math.ceil(json.data.meta.total / PER_PAGE);
 
   return (
     <div className="drawer drawer-start lg:drawer-open">
@@ -117,7 +111,7 @@ const Products = async ({ searchParams }) => {
 
               {/* Product Grid */}
               <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 md:gap-5">
-                {paginatedProducts.map((product, i) => (
+                {sortedProducts.map((product, i) => (
                   <ProductCard key={i} product={product} />
                 ))}
               </div>
