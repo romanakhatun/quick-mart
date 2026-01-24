@@ -5,6 +5,16 @@ import SortSelect from "@/components/SortSelect";
 import { CiFilter } from "react-icons/ci";
 export const dynamic = "force-dynamic";
 
+export const generateMetadata = () => {
+  let title = "All Products | QuickMart";
+  let description = "Browse all products at the best price from QuickMart.";
+
+  return {
+    title,
+    description,
+  };
+};
+
 const Products = async ({ searchParams }) => {
   const query = await searchParams;
 

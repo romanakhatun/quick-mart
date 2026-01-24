@@ -5,6 +5,24 @@ import ProductTabs from "@/components/ProductTabs";
 import { BsShareFill } from "react-icons/bs";
 import ProductImages from "@/components/ProductImage";
 import Link from "next/link";
+import { htmlToPlainText } from "@/utils/htmlToPlainText";
+
+export const generateMetadata = async ({ params }) => {
+  const { slug } = await params;
+
+  const res = await fetch(
+    `https://ecommerce-saas-server-wine.vercel.app/api/v1/product/path/${slug}`,
+  );
+  const data = await res.json();
+  const product = data?.data;
+  const plainText = htmlToPlainText(product.description);
+  const title = `Quick Mart | ${product.name}`;
+
+  return {
+    title: title,
+    description: plainText,
+  };
+};
 
 const ProductDetails = async ({ params }) => {
   const { slug } = await params;
