@@ -11,7 +11,7 @@ const ProductColor = ({ variants, selectedVariant, onSelect }) => {
             <button
               key={variant._id}
               onClick={() => onSelect(variant)}
-              className={`px-3 py-1 border rounded text-sm
+              className={`px-3 py-1 border rounded text-sm cursor-pointer
                 ${
                   active
                     ? "border border-red-500 text-red-500"
