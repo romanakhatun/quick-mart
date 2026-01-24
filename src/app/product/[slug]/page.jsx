@@ -27,19 +27,6 @@ export const generateMetadata = async ({ params }) => {
 const ProductDetails = async ({ params }) => {
   const { slug } = await params;
 
-  // const { slug } = useParams();
-  // const [product, setProduct] = useState(null);
-  // const [qty, setQty] = useState(1);
-
-  // useEffect(() => {
-  //   fetch("/data/products.json")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const found = data.find((item) => item.slug === slug);
-  //       setProduct(found);
-  //     });
-  // }, [slug]);
-
   const res = await fetch(
     `https://ecommerce-saas-server-wine.vercel.app/api/v1/product/path/${slug}`,
   );
@@ -48,15 +35,15 @@ const ProductDetails = async ({ params }) => {
 
   return (
     <>
-      <title>Quick Mart | Shop</title>
-      <meta name="description" content={product.description}></meta>
-
       <main className="min-h-screen bg-white">
         <section className="mid-container py-10">
           <div className="grid lg:grid-cols-2 gap-5">
             {/* Image */}
             <div className="border border-base-100 rounded-xl p-5">
-              <ProductImages images={product.imageURLs} />
+              <ProductImages
+                images={product.imageURLs}
+                variant={product.variant}
+              />
             </div>
 
             {/* RIGHT: Info */}
@@ -74,9 +61,12 @@ const ProductDetails = async ({ params }) => {
                 <div>
                   <p>
                     <span className="font-semibold">Category:</span>{" "}
-                    <span className="cursor-pointer text-[#9234D2] hover:text-black duration-150 text-sm font-extrabold">
+                    <Link
+                      href={`/category?category=${product.category}`}
+                      className="cursor-pointer text-[#9234D2] hover:text-black duration-150 text-sm font-extrabold"
+                    >
                       {product.category}
-                    </span>
+                    </Link>
                   </p>
 
                   <p>
@@ -100,7 +90,11 @@ const ProductDetails = async ({ params }) => {
 
               <p>
                 <span className="font-semibold">Status:</span>{" "}
-                <span className="text-green-600">In Stock</span>
+                {product.stock ? (
+                  <span className="text-green-600">In Stack</span>
+                ) : (
+                  <span className="text-red-400">Out Of Stack</span>
+                )}
               </p>
 
               {/* Price */}

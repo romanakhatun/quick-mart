@@ -4,7 +4,8 @@ import { FaRegHeart } from "react-icons/fa";
 import CartDrawer from "./CartDrawer";
 
 const ProductCard = ({ product }) => {
-  const { path, name, salePrice, productPrice, discount, imageURLs } = product;
+  const { path, name, salePrice, productPrice, discount, imageURLs, variant } =
+    product;
 
   return (
     <div className="bg-white rounded-md shadow transition p-3 relative flex flex-col">
@@ -23,7 +24,7 @@ const ProductCard = ({ product }) => {
         <div className="relative w-full h-40">
           <Link href={`/product/${path}`}>
             <Image
-              src={imageURLs?.[0]}
+              src={imageURLs?.[0] || variant?.[0].image}
               alt={name || "Product image"}
               fill
               sizes="(max-width: 768px) 100vw, 250px"

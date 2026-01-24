@@ -1,9 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 
-const ProductImages = ({ images }) => {
-  const [activeImage, setActiveImage] = useState(images?.[0] || null);
+const ProductImages = ({ images = [], variant = [] }) => {
+  const allImages = useMemo(() => {
+    const productImages = images.filter(Boolean);
+
+    const variantImages = variant.map((v) => v?.image).filter(Boolean);
+
+    return productImages.length > 0 ? productImages : variantImages;
+  }, [images, variant]);
+
+  const [activeImage, setActiveImage] = useState(allImages[0] || null);
 
   return (
     <div>
@@ -15,21 +23,27 @@ const ProductImages = ({ images }) => {
             alt="product"
             fill
             className="object-contain"
+            priority
           />
         )}
       </div>
 
       {/* THUMBNAILS */}
-      <div className="flex gap-3 pt-4">
-        {images.map((img, i) => (
-          <div
+      <div className="flex gap-3 pt-4 flex-wrap">
+        {allImages.map((img, i) => (
+          <button
             key={i}
             onClick={() => setActiveImage(img)}
             className={`relative w-20 h-20 border rounded-md cursor-pointer
               ${activeImage === img ? "border-primary" : "border-gray-300"}`}
           >
-            <Image src={img} alt="Image" fill className="object-contain" />
-          </div>
+            <Image
+              src={img}
+              alt="thumbnail"
+              fill
+              className="object-contain rounded-md"
+            />
+          </button>
         ))}
       </div>
     </div>
