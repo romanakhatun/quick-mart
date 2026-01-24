@@ -5,6 +5,7 @@ import ProductImages from "@/components/ProductImage";
 import Link from "next/link";
 import { htmlToPlainText } from "@/utils/htmlToPlainText";
 import Quantity from "@/components/Quantity";
+import ProductVariantWrapper from "@/components/ProductVariantWrapper";
 
 // Generate Meta Data
 export const generateMetadata = async ({ params }) => {
@@ -15,12 +16,10 @@ export const generateMetadata = async ({ params }) => {
   );
   const data = await res.json();
   const product = data?.data;
-  const plainText = htmlToPlainText(product.description);
-  const title = `Quick Mart | ${product.name}`;
 
   return {
-    title: title,
-    description: plainText,
+    title: `Quick Mart | ${product.name}`,
+    description: htmlToPlainText(product.description),
   };
 };
 
@@ -88,26 +87,10 @@ const ProductDetails = async ({ params }) => {
                 </div>
               </div>
 
-              <p>
-                <span className="font-semibold">Status:</span>{" "}
-                {product.stock ? (
-                  <span className="text-green-600">In Stack</span>
-                ) : (
-                  <span className="text-red-400">Out Of Stack</span>
-                )}
-              </p>
-
-              {/* Price */}
-              <div className="flex items-center gap-4 mt-4">
-                <span className="text-3xl font-bold text-[#ea580c]">
-                  TK {product.salePrice}.00
-                </span>
-                <p className="bg-red-600 py-1 px-3 text-white rounded-2xl btn-sm text-xs btn-warning hover:bg-red-600">
-                  {product.discount}% OFF
-                </p>
-              </div>
+              <ProductVariantWrapper product={product} />
 
               <Quantity />
+
               {/* Buttons */}
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <Link

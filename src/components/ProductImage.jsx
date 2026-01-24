@@ -1,12 +1,13 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 
 const ProductImages = ({ images = [], variant = [] }) => {
+  console.log("variants", variant);
+
   const allImages = useMemo(() => {
-    const productImages = images.filter(Boolean);
-    const variantImages = variant.map((v) => v?.image).filter(Boolean);
-    return productImages.length > 0 ? productImages : variantImages;
+    const variantImages = variant.map((v) => v.image).filter(Boolean);
+    return images.length ? images : variantImages;
   }, [images, variant]);
 
   const [activeImage, setActiveImage] = useState(allImages[0] || null);

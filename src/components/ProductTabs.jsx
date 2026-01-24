@@ -42,9 +42,19 @@ const ProductTabs = ({ product }) => {
             />
           )}
 
-          {active === "ingredient" && <p>{product.ingredient}</p>}
+          {active === "ingredient" && (
+            <div
+              className="prose prose-sm md:prose-base max-w-none prose-h1:text-2xl prose-h2:text-xl md:prose-h2:text-2xl prose-h2:font-semibold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-primary prose-ul:list-disc"
+              dangerouslySetInnerHTML={{ __html: product.ingredient }}
+            />
+          )}
 
-          {active === "how" && <p>{product.how_to_use}</p>}
+          {active === "how" && (
+            <div
+              className="prose prose-sm md:prose-base max-w-none prose-h1:text-2xl prose-h2:text-xl md:prose-h2:text-2xl prose-h2:font-semibold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-primary prose-ul:list-disc"
+              dangerouslySetInnerHTML={{ __html: product.how_to_use }}
+            />
+          )}
 
           {active === "review" && (
             <p className="text-gray-500">No reviews yet.</p>
