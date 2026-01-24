@@ -92,7 +92,7 @@ const ProductFilter = () => {
       <div className="bg-white rounded-xl shadow p-5">
         <h3 className="font-semibold mb-4">Category</h3>
 
-        {["Electronics", "Laptop"].map((cat) => (
+        {["Electronics", "Laptop", "Phones"].map((cat) => (
           <label key={cat} className="flex items-center gap-3 mb-3">
             <input
               type="checkbox"

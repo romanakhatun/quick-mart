@@ -61,6 +61,7 @@ const Products = async ({ searchParams }) => {
   const paginatedProducts = sortedProducts.slice(start, end);
 
   console.log({ params, params: params.toString(), url });
+
   return (
     <div className="drawer drawer-start lg:drawer-open">
       {/* Drawer Toggle */}
