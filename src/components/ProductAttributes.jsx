@@ -37,7 +37,7 @@ const ProductAttributes = ({
                       [attrName]: value,
                     })
                   }
-                  className={`px-3 py-1 border rounded text-sm
+                  className={`px-3 py-1 border rounded text-sm cursor-pointer
                     ${
                       active ? "border-red-500 text-red-500" : "border-gray-300"
                     }

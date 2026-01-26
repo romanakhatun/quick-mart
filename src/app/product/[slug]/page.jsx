@@ -31,8 +31,10 @@ const ProductDetails = async ({ params }) => {
     <>
       <main className="min-h-screen bg-white">
         <section className="mid-container py-10">
-          <ProductDetailsContent product={product} slug={slug} />
-          <ProductTabs product={product} />
+          <div className="mid-container">
+            <ProductDetailsContent product={product} slug={slug} />
+            <ProductTabs product={product} />
+          </div>
         </section>
       </main>
     </>
